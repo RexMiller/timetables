@@ -1,0 +1,21 @@
+{
+  "[csharp]": {
+    "editor.maxTokenizationLineLength": 2500,
+    "editor.inlineSuggest.suppressSuggestions": false,
+    "editor.formatOnType": true,
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4
+  },
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    220
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/obj/": true,
+    "**/bin/": true
+  },
+  "csharp.semanticHighlighting.enabled": true,
+  "dotnet.defaultSolution": "Timetables.sln"
+}
