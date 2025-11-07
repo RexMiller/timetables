@@ -8,12 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.10" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../Timetables.Domain/Timetables.Domain.csproj" />
     <ProjectReference Include="../Timetables.Infrastructure/Timetables.Infrastructure.csproj" />
-    <ProjectReference Include="..\Timetables.Application\Timetables.Application.csproj" />
+    <ProjectReference Include="../Timetables.Application/Timetables.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <ProjectReference Include="../Timetables.Application/Timetables.Application.csproj" />
+    <ProjectReference Include="../Timetables.Domain/Timetables.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.10" />
   </ItemGroup>
 
 </Project>

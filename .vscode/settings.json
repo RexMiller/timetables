@@ -1,12 +1,12 @@
 {
   "[csharp]": {
-    "editor.maxTokenizationLineLength": 2500,
-    "editor.inlineSuggest.suppressSuggestions": false,
     "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
     "editor.insertSpaces": false,
     "editor.tabSize": 4
   },
   "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
   "editor.tabSize": 2,
   "editor.rulers": [
     220

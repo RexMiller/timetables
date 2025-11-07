@@ -1,3 +1,5 @@
+using Timetables.WebApi.Configuration;
+
 namespace Timetables.WebApi;
 
 public class Program
@@ -17,6 +19,7 @@ public class Program
 			app.MapOpenApi();
 		}
 
+		app.ConfigureDatabase();
 		app.UseAuthorization();
 		app.MapControllers();
 		app.Run();
