@@ -23,16 +23,15 @@ public sealed class StopsRepository : IStopsRepository
 			SELECT 
 				r.RouteId,
 				r.Name as Route,
-				sr.Description as Subroute
+				sr.Description as Subroute,
 				rs.StopId,
 				rs.Name as StopName,
 				rs.Number as StopNumber,
-				rs.Direction as StopDirection,
 				rs.IsActive as StopIsActive,
 				st.Time,
 				st.DayCategory
 			FROM RouteStops as rs
-			INNER JOINT SubRoutes as sr
+			INNER JOIN SubRoutes as sr
 				ON rs.SubRouteId = sr.SubRouteId
 			INNER JOIN Routes as r
 				ON rs.RouteId = r.RouteId

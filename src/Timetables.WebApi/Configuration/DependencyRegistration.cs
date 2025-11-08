@@ -3,7 +3,6 @@ using Timetables.Application.UseCases.NextScheduledTime;
 using Timetables.Domain.Interfaces;
 using Timetables.Infrastructure.Sqlite;
 using Timetables.Infrastructure.Stops;
-
 using UseCaseGetStops = Timetables.Application.UseCases.GetStops.UseCase;
 using UseCaseNextScheduledTime = Timetables.Application.UseCases.NextScheduledTime.UseCase;
 
@@ -15,7 +14,7 @@ public static class DependencyRegistration
 	{
 		services
 			.Configure<LocalTime>(configuration.GetSection(nameof(LocalTime)))
-			.Configure<SqlLiteSettings>(configuration.GetSection(nameof(SqlLiteSettings)));
+			.Configure<SqliteSettings>(configuration.GetSection(nameof(SqliteSettings)));
 
 		services
 			.AddScoped<UseCaseGetStops>()
@@ -25,7 +24,7 @@ public static class DependencyRegistration
 
 		services
 			.AddSingleton<LocalTime>(x => x.GetRequiredService<IOptions<LocalTime>>().Value)
-			.AddSingleton<SqlLiteSettings>(x => x.GetRequiredService<IOptions<SqlLiteSettings>>().Value)
+			.AddSingleton<ISqliteSettings>(x => x.GetRequiredService<IOptions<SqliteSettings>>().Value)
 			.AddSingleton<ConnectionStringFactory>();
 
 		return services;

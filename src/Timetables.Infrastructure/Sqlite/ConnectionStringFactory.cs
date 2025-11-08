@@ -2,26 +2,20 @@ namespace Timetables.Infrastructure.Sqlite;
 
 public sealed class ConnectionStringFactory
 {
-	private readonly SqlLiteSettings _settings;
+	private readonly ISqliteSettings _settings;
 
-	public ConnectionStringFactory(SqlLiteSettings settings)
+	public ConnectionStringFactory(ISqliteSettings settings)
 	{
 		_settings = settings;
 	}
 
 	public string Create()
 	{
-		return $"Data Source={FileAbsolutePath()}";
+		return $"Data Source={_settings.FileAbsolutePath()}";
 	}
 
 	public string FileAbsolutePath()
 	{
-		return Path.Combine($"{DirectoryAbsolutePath()}", $"{_settings.FileName}.sqlite");
-	}
-
-	public string DirectoryAbsolutePath()
-	{
-		var currentDir = Directory.GetCurrentDirectory();
-		return Path.Combine(currentDir, @"../..", $"{_settings.DirectoryName}");
+		return Path.Combine($"{_settings.DirectoryAbsolutePath()}", $"{_settings.FileName}.sqlite");
 	}
 }

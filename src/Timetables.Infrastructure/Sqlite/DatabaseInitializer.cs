@@ -6,9 +6,9 @@ namespace Timetables.Infrastructure.Sqlite;
 public sealed class DatabaseInitializer
 {
 	private readonly ConnectionStringFactory _conStringFactory;
-	private readonly SqlLiteSettings _settings;
+	private readonly ISqliteSettings _settings;
 
-	public DatabaseInitializer(ConnectionStringFactory conStringFactory, SqlLiteSettings settings)
+	public DatabaseInitializer(ConnectionStringFactory conStringFactory, ISqliteSettings settings)
 	{
 		_conStringFactory = conStringFactory;
 		_settings = settings;
@@ -19,11 +19,11 @@ public sealed class DatabaseInitializer
 		var conStr = _conStringFactory.Create();
 		using var con = new SqliteConnection(conStr);
 
-		var initFilePath = Path.Combine(_conStringFactory.DirectoryAbsolutePath(), $"{_settings.InitFileName}.sql");
+		var initFilePath = Path.Combine(_settings.DirectoryAbsolutePath(), $"{_settings.InitFileName}.sql");
 
 		initFilePath = File.Exists(initFilePath)
 			? initFilePath
-			: Path.Combine(_conStringFactory.DirectoryAbsolutePath(), $"{_settings.InitFileName}.txt");
+			: Path.Combine(_settings.DirectoryAbsolutePath(), $"{_settings.InitFileName}.txt");
 
 		var sql = File.ReadAllText(initFilePath);
 

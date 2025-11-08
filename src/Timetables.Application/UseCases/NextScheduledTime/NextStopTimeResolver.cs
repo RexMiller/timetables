@@ -4,27 +4,32 @@ namespace Timetables.Application.UseCases.NextScheduledTime;
 
 public static class NextStopTimeResolver
 {
-	public static ViewModel FindNextTimeFromNow(this Stop stop, TimeZoneInfo timeZone)
+	public static ViewModel FindNextTimeAfter(this Stop stop, DateTime nowLocal)
 	{
-		var nowLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-
-		var maxTries = 3;
-		var tryCount = 0;
+		// try get next ocurring stop if any left today
 		var next = stop.GetNextTimeFrom(nowLocal);
 
-		while (next == default && tryCount < maxTries)
+		// if no stop left on the current day try 
+		// the following day for the next 2 days
+		var daysTried = 1;
+		var maxDaysToTry = 3;
+
+		while (!next.HasValue && daysTried < maxDaysToTry)
 		{
-			nowLocal = nowLocal.AddDays(1);
+			// advance to the next day
+			nowLocal = nowLocal.Date.AddDays(1);
+			// and get the first stop of the next day
 			next = stop.GetNextTimeFrom(nowLocal);
-			tryCount++;
+
+			daysTried++;
 		}
 
-		return next != default
-			? ViewModel.ForStop(stop, DateOnly.FromDateTime(nowLocal), next)
-			: ViewModel.Unavailable($"No stop times within the next {maxTries} days");
+		return next.HasValue
+			? ViewModel.ForStop(stop, DateOnly.FromDateTime(nowLocal), next.Value)
+			: ViewModel.Unavailable($"No stop times within {maxDaysToTry} days");
 	}
 
-	private static TimeOnly GetNextTimeFrom(this Stop stop, DateTime nowLocal)
+	private static TimeOnly? GetNextTimeFrom(this Stop stop, DateTime nowLocal)
 	{
 		var dayCategory = nowLocal.DayOfWeek switch
 		{
@@ -36,9 +41,8 @@ public static class NextStopTimeResolver
 		var nextTime = stop.Schedules
 			.SelectMany(sch => sch.Times.Select(t => new { sch.DayCategory, Time = t }))
 			.Where(t => t.DayCategory == dayCategory && TimeOnly.FromDateTime(nowLocal) < t.Time)
-			.Select(t => t.Time)
 			.FirstOrDefault();
 
-		return nextTime;
+		return nextTime?.Time;
 	}
 }

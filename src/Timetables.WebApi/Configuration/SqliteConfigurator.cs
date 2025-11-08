@@ -9,9 +9,10 @@ internal static class SqliteConfigurator
 		using var scope = app.Services.CreateScope();
 
 		var services = scope.ServiceProvider;
+		var settings = services.GetRequiredService<ISqliteSettings>();
 		var conStringFactory = services.GetRequiredService<ConnectionStringFactory>();
-		var filePath = conStringFactory.FileAbsolutePath();
-		var directory = conStringFactory.DirectoryAbsolutePath();
+		var filePath = settings.FileAbsolutePath();
+		var directory = settings.DirectoryAbsolutePath();
 
 		if (!File.Exists(filePath))
 		{

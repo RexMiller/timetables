@@ -23,6 +23,7 @@ public sealed class UseCase
 			return ViewModel.Unavailable(err ?? "error getting stop data");
 		}
 
-		return stop.FindNextTimeFromNow(_localTime.TimeZone);
+		var nowLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _localTime.TimeZone);
+		return stop.FindNextTimeAfter(nowLocal);
 	}
 }
