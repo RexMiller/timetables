@@ -4,6 +4,7 @@ namespace Timetables.Application.UseCases.GetStops;
 
 public sealed record ViewModel
 {
+	public string Route { get; init; } = string.Empty;
 	public Subroute[] Subroutes { get; init; } = [];
 	public bool AreAvailable { get; init; } = true;
 	public string? Message { get; init; }
@@ -35,7 +36,11 @@ public sealed record ViewModel
 				})],
 		});
 
-		return new ViewModel { Subroutes = [.. subroutes] };
+		return new ViewModel
+		{
+			Route = stops.FirstOrDefault()?.Route ?? "route not found",
+			Subroutes = [.. subroutes]
+		};
 	}
 
 	public static ViewModel Unavailable(string message)

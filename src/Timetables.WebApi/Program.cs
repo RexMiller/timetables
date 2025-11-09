@@ -19,6 +19,7 @@ public class Program
 			app.MapOpenApi();
 		}
 
+		app.UseStaticFiles();
 		app.ConfigureDatabase();
 		app.UseAuthorization();
 		app.MapControllers();
