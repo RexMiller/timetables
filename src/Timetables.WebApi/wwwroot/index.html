@@ -5,8 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stops</title>
+
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="stopsDataService.js"></script>
+  <script src="stopsViewModel.js"></script>
+
 </head>
 
 <body style="background-color: black; color: white; font-family: sans-serif; padding: 20px;">
@@ -21,7 +25,7 @@
         <select x-model="subroute.selectedStopNum" @change="getNextBusInfo(subroute)" style="margin-bottom: 8px;">
           <option>Select a stop</option>
           <template x-for="stop in subroute.stops" :key="stop.number">
-            <option :value="stop.number" x-text="`${stop.number} - ${stop.name}`">
+            <option x-text="`${stop.number} - ${stop.name}`" :value="stop.number">
             </option>
           </template>
         </select>
@@ -30,19 +34,18 @@
 
         <div style="height: 100px; margin-top: 20px;">
           <template x-if="subroute.selectedStop">
-            <template x-if="subroute.selectedStop.nextBusInfo.isAvailable">
-              <div>
+            <div>
+              <div x-show="subroute.selectedStop.nextBusInfo.isAvailable">
                 Next bus on
                 <span x-text="subroute.selectedStop.nextBusInfo.dayOfWeek"></span>
                 <span x-text="subroute.selectedStop.nextBusInfo.date"></span> at
-                <div style="font-size: 72px;" x-text="subroute.selectedStop.nextBusInfo.time"></div>
+                <div x-text="subroute.selectedStop.nextBusInfo.time" style="font-size: 72px;"></div>
               </div>
-            </template>
-            <template x-if="! subroute.selectedStop.nextBusInfo.isAvailable">
-              <div>
+
+              <div x-show="!subroute.selectedStop.nextBusInfo.isAvailable">
                 <span x-text="subroute.selectedStop.nextBusInfo.message || 'unable to get stop data'"></span>
               </div>
-            </template>
+            </div>
           </template>
         </div>
 
@@ -50,42 +53,5 @@
     </template>
 
   </div>
-
-  <script>
-    function stopsViewModel() {
-      return {
-        route: '',
-        subroutes: [],
-
-        async getStops() {
-          const stops = await axios.get('http://localhost:5076/api/v1/stops/for-route/1');
-
-          console.log("stops/for-route response:", stops.data);
-
-          const { route, subroutes } = stops.data;
-          this.route = route;
-          this.subroutes = subroutes.map(sr => ({
-            ...sr,
-            selectedStopNum: '',
-            selectedStop: null,
-            loading: false
-          }));
-        },
-
-        async getNextBusInfo(subroute) {
-          subroute.loading = true;
-          const nextTime = await axios.get(`http://localhost:5076/api/v1/stops/${subroute.selectedStopNum}/next-bus-time`);
-          subroute.loading = false;
-
-          console.log("next-bus-time response:", nextTime.data);
-
-          subroute.selectedStop = {
-            nextBusInfo: nextTime.data
-          };
-        }
-      };
-    }
-  </script>
-
 </body>
 </html>

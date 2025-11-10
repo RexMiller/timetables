@@ -21,17 +21,17 @@ public class StopsController : ControllerBase
 		_getNextScheduledTime = getNextScheduledTime;
 	}
 
-	[HttpGet("{stopNumber}/next-bus-time")]
-	public async Task<ActionResult<ViewNextScheduledTime>> GetNextBusTime([FromRoute] int stopNumber)
-	{
-		var nextTime = await _getNextScheduledTime.Execute(stopNumber);
-		return Ok(nextTime);
-	}
-
 	[HttpGet("for-route/{routeId}")]
 	public async Task<ActionResult<ViewRouteStops>> GetStops([FromRoute] int routeId)
 	{
 		var stops = await _getStops.Execute(routeId);
 		return Ok(stops);
+	}
+
+	[HttpGet("{stopNumber}/next-bus-time")]
+	public async Task<ActionResult<ViewNextScheduledTime>> GetNextBusTime([FromRoute] int stopNumber)
+	{
+		var nextTime = await _getNextScheduledTime.Execute(stopNumber);
+		return Ok(nextTime);
 	}
 }
