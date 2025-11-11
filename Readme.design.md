@@ -25,13 +25,14 @@ A more literal approach would have been to have routes contain subroutes, and ea
 
 ## use case details
 
-`UseCases/GetStops` fetches and returns the stops for a given route (always F in this case).
+`UseCases/GetStops` fetches the stops for a given route (always F in this case) and returns a view model representation of them.
 
 `UseCases/NextScheduledTime` takes in a stop number, fetches the schedules for that stop, and then performs the business logic to identify the time of the next arriving bus:
 - gets the applicable time zone from injected settings
 - accounts for weekday vs weekend schedules based on current time/date
 - rolls to the earliest stop on the following day if no more buses on the current day
 - if no buses for the current day or the following two days, will return unavailable
+- returns a view model that formats date and time into strings along with a string for the day of the week
 
 The logic to resolve the next scheduled time is isolated in `NextStopTimeResolver`, which has no dependencies and makes testing the bulk of the application logic easy.
 
