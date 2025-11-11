@@ -3,6 +3,17 @@ Thank you for the opportunity to work on this assessment. It was fun!
 
 Answers to the questions in the instructions are below. For details about the application design [go here](Readme.design.md) 💻.
 
+## instructions to run
+Requires .net core 9.x
+
+```
+$ git clone https://github.com/RexMiller/timetables.git
+$ cd timetables
+$ dotnet run --project src/Timetables.WebApi/Timetables.WebApi.csproj
+
+Browse to http://localhost:5000
+```
+
 ### How long did it take?
 I'd say it took about 20 hours. I got pretty drawn into some of the interesting problems it presented.
 
@@ -22,6 +33,6 @@ I used Claude Sonnet (via Copilot):
 - To automate repetitive tasks or data generation. Specifically, I used it to generate times for the stops in the database initialization script.
 - To generate the ERD for the database from the initialization script.
 
-I used ChatGPT to accelerate learning Alpine.js—not as a substitute for learning it or to do the work for me.
+I used ChatGPT to accelerate learning Alpine.js—to rapidly locate information and distill it to the essential points, not as a substitute for learning it or to do the work for me.
 
 I'm happy to talk more about how I apply AI to my work if you have any questions or concerns.
