@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
+using Timetables.Application.Interfaces;
 using Timetables.Application.UseCases.NextScheduledTime;
-using Timetables.Domain.Interfaces;
 using Timetables.Infrastructure.Sqlite;
 using Timetables.Infrastructure.Stops;
 using UseCaseGetStops = Timetables.Application.UseCases.GetStops.UseCase;

@@ -1,6 +1,6 @@
 using Timetables.Domain.Models;
 
-namespace Timetables.Domain.Interfaces;
+namespace Timetables.Application.Interfaces;
 
 public interface IStopsRepository
 {

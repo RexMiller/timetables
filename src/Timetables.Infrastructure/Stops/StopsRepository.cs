@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.Sqlite;
-using Timetables.Domain.Interfaces;
+using Timetables.Application.Interfaces;
 using Timetables.Domain.Models;
 using Timetables.Infrastructure.Sqlite;
 

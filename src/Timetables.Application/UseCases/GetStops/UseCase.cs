@@ -1,4 +1,4 @@
-using Timetables.Domain.Interfaces;
+using Timetables.Application.Interfaces;
 
 namespace Timetables.Application.UseCases.GetStops;
 

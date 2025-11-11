@@ -1,6 +1,6 @@
 using Moq;
+using Timetables.Application.Interfaces;
 using Timetables.Application.UseCases.GetStops;
-using Timetables.Domain.Interfaces;
 using Timetables.Domain.Models;
 using Xunit;
 
