@@ -39,7 +39,6 @@ public sealed class StopsRepository : IStopsRepository
 				ON st.StopId = rs.StopId
 			WHERE rs.Number = @number;";
 
-
 		try
 		{
 			using var con = new SqliteConnection(conString);
@@ -55,7 +54,8 @@ public sealed class StopsRepository : IStopsRepository
 		{
 			// I would prefer to log the exception and
 			// return an error object more suitable to
-			// the consumer
+			// the consumer than the exception message
+			// but going this route for POC
 			return (false, default, $"{ex.Message}");
 		}
 	}
