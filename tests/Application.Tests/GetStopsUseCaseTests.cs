@@ -11,10 +11,8 @@ public class GetStopsUseCaseTests
 	[Fact]
 	public async Task CallsRepositoryToGetData()
 	{
-		var stops = new Stop[] { new() };
-
 		var repo = new Mock<IStopsRepository>();
-		repo.Setup(x => x.GetByRoute(It.IsAny<int>())).ReturnsAsync((true, stops, default));
+		repo.Setup(x => x.GetByRoute(It.IsAny<int>())).ReturnsAsync((true, [], default));
 
 		var useCase = new UseCase(repo.Object);
 
@@ -24,7 +22,7 @@ public class GetStopsUseCaseTests
 	}
 
 	[Fact]
-	public async Task RepositoryError_StopsUnavailableWithMessage()
+	public async Task RepositoryError_StopsAreUnavailableWithMessage()
 	{
 		var repo = new Mock<IStopsRepository>();
 		repo.Setup(x => x.GetByRoute(It.IsAny<int>())).ReturnsAsync((false, [], "error"));
@@ -39,7 +37,7 @@ public class GetStopsUseCaseTests
 
 
 	[Fact]
-	public async Task NoStopsFoundForRoute_StopsUnavailableWithMessage()
+	public async Task NoStopsFoundForRoute_StopsAreUnavailableWithMessage()
 	{
 		var repo = new Mock<IStopsRepository>();
 		repo.Setup(x => x.GetByRoute(It.IsAny<int>())).ReturnsAsync((true, [], default));
@@ -55,7 +53,7 @@ public class GetStopsUseCaseTests
 	[Fact]
 	public async Task StopsFound_GetsStops()
 	{
-		var stops = new Stop[] { new() };
+		var stops = new Stop[] { new() { Id = 1, Number = 1, Name = "stop", IsActive = true } };
 
 		var repo = new Mock<IStopsRepository>();
 		repo.Setup(x => x.GetByRoute(It.IsAny<int>())).ReturnsAsync((true, stops, default));

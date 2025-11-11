@@ -26,7 +26,7 @@ public class NextScheduledTimeUseCaseTests
 	}
 
 	[Fact]
-	public async Task RepositoryError_NextTimeUnvailableWithMessage()
+	public async Task RepositoryError_NextTimeIsUnvailableWithMessage()
 	{
 		var nowLocal = DateTime.Now;
 		var stop = StopWithUpcomingTimes(nowLocal);
@@ -62,7 +62,7 @@ public class NextScheduledTimeUseCaseTests
 	}
 
 	[Fact]
-	public async Task NoTimesAvailable_NextTimeUnvailableWithMessage()
+	public async Task NoTimesAvailable_NextTimeIsUnvailableWithMessage()
 	{
 
 		var nowLocal = DateTime.Now;
